@@ -43,6 +43,7 @@ router.post("/", (req, res) => {
 });
 
 router.post("/products", (req, res) => {
+  //넘어온 body를 아래와 같이 백엔드 속성으로 지정 해준다.
   let order = req.body.order ? req.body.order : "desc";
   let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
   // product collection에 들어 있는 모든 상품 정보를 가져오기
@@ -50,6 +51,7 @@ router.post("/products", (req, res) => {
   let skip = req.body.skip ? parseInt(req.body.skip) : 0;
   let term = req.body.searchTerm;
 
+  //findArgs 를 지정한다.
   let findArgs = {};
 
   for (let key in req.body.filters) {
@@ -69,7 +71,9 @@ router.post("/products", (req, res) => {
     }
   }
 
+  //if (term) 만 해도 작동을 하는 것인가봄
   if (term) {
+    //위에서 정의한 filters의 findArgs가 find의 매개변수로 사용된다.
     Product.find(findArgs)
       .find({ $text: { $search: term } })
       .populate("writer")
