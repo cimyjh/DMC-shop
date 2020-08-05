@@ -107,6 +107,7 @@ router.post("/products", (req, res) => {
 
 //id=123123123,324234234,324234234  type=array
 router.get("/products_by_id", (req, res) => {
+  //axios url에 type이랑 id있으니 이걸 백엔드에서 객체화
   let type = req.query.type;
   let productIds = req.query.id;
 
@@ -120,7 +121,6 @@ router.get("/products_by_id", (req, res) => {
   }
 
   //productId를 이용해서 DB에서  productId와 같은 상품의 정보를 가져온다.
-
   Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {

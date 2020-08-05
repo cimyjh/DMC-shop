@@ -1,27 +1,26 @@
-import React, { useState } from 'react'
-import { Input } from 'antd';
+import React, { useState } from "react";
+import { Input } from "antd";
 
 const { Search } = Input;
 
 function SearchFeature(props) {
+  const [SearchTerm, setSearchTerm] = useState("");
 
-    const [SearchTerm, setSearchTerm] = useState("")
+  const searchHandler = (event) => {
+    setSearchTerm(event.currentTarget.value);
+    props.refreshFunction(event.currentTarget.value);
+  };
 
-    const searchHandler = (event) => {
-        setSearchTerm(event.currentTarget.value)
-        props.refreshFunction(event.currentTarget.value)
-    }
-
-    return (
-        <div>
-            <Search
-                placeholder="input search text"
-                onChange={searchHandler}
-                style={{ width: 200 }}
-                value={SearchTerm}
-            />
-        </div>
-    )
+  return (
+    <div>
+      <Search
+        placeholder="input search text"
+        onChange={searchHandler}
+        style={{ width: 200 }}
+        value={SearchTerm}
+      />
+    </div>
+  );
 }
 
-export default SearchFeature
+export default SearchFeature;
